@@ -1,0 +1,964 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #f5f7fb;
+  color: #172033;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+  height: 76px;
+
+  background: white;
+
+  border-bottom: 1px solid #e8ebf0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 42px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 12px;
+
+  background: #162f75;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand h1 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand p {
+  margin: 3px 0 0;
+
+  font-size: 12px;
+
+  color: #7b8495;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 13px;
+
+  color: #5d6575;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #27ae60;
+}
+
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+.main {
+  max-width: 1250px;
+
+  margin: 0 auto;
+
+  padding: 32px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    320px;
+
+  gap: 24px;
+}
+
+
+/* ============================================================
+   CHAT
+   ============================================================ */
+
+.chat-panel {
+  background: white;
+
+  border: 1px solid #e7eaf0;
+
+  border-radius: 18px;
+
+  min-height: 720px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.messages {
+  flex: 1;
+
+  padding: 28px;
+
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.message-content {
+  max-width: 78%;
+
+  padding: 14px 17px;
+
+  border-radius: 15px;
+
+  white-space: pre-wrap;
+
+  line-height: 1.55;
+
+  font-size: 14px;
+}
+
+.assistant-message .message-content {
+  background: #f3f5f9;
+
+  color: #172033;
+}
+
+.user-message .message-content {
+  background: #162f75;
+
+  color: white;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #e9eefc;
+
+  color: #162f75;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+.loading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.spin {
+  animation:
+    spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* ============================================================
+   INPUT
+   ============================================================ */
+
+.input-area {
+  display: flex;
+
+  gap: 10px;
+
+  padding: 16px;
+
+  border-top: 1px solid #e7eaf0;
+
+  background: white;
+}
+
+.input-area input {
+  flex: 1;
+
+  min-width: 0;
+
+  border: 1px solid #dfe3ea;
+
+  border-radius: 12px;
+
+  padding: 13px 15px;
+
+  outline: none;
+
+  color: #172033;
+
+  background: white;
+}
+
+.input-area input::placeholder {
+  color: #9aa2b1;
+}
+
+.input-area input:focus {
+  border-color: #162f75;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 47, 117, 0.08);
+}
+
+.input-area button {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #162f75;
+
+  color: white;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.input-area button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.input-area button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   FLIGHT OPTIONS
+   ============================================================ */
+
+.flight-options {
+  margin-top: 24px;
+
+  width: 100%;
+}
+
+.flight-options h2 {
+  margin: 0 0 14px;
+
+  font-size: 18px;
+
+  color: #172033;
+}
+
+
+/* ============================================================
+   FLIGHT CARD
+   ============================================================ */
+
+.flight-option {
+  background: white;
+
+  border: 1px solid #e1e5ec;
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  margin-bottom: 14px;
+
+  box-shadow:
+    0 2px 8px rgba(20, 32, 60, 0.04);
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.flight-option:hover {
+  border-color: #b8c4e3;
+
+  box-shadow:
+    0 6px 20px rgba(20, 32, 60, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   FLIGHT TOP
+   ============================================================ */
+
+.flight-top {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.flight-top > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.flight-top strong {
+  font-size: 15px;
+
+  color: #172033;
+}
+
+.flight-top span {
+  font-size: 12px;
+
+  color: #7b8495;
+}
+
+.flight-price {
+  font-size: 18px !important;
+
+  color: #162f75 !important;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   FLIGHT ROUTE
+   ============================================================ */
+
+.flight-route {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    auto
+    1fr;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin: 22px 0 18px;
+}
+
+.flight-route div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.flight-route div:last-child {
+  align-items: flex-end;
+}
+
+.flight-route small {
+  font-size: 11px;
+
+  color: #7b8495;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+.flight-route strong {
+  font-size: 13px;
+
+  color: #172033;
+}
+
+.flight-arrow {
+  color: #8992a3;
+
+  font-size: 20px;
+}
+
+
+/* ============================================================
+   FLIGHT META
+   ============================================================ */
+
+.flight-meta {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+.flight-meta span {
+  font-size: 11px;
+
+  color: #5f6878;
+
+  background: #f1f3f7;
+
+  border-radius: 7px;
+
+  padding: 6px 9px;
+}
+
+
+/* ============================================================
+   SELECT BUTTON
+   ============================================================ */
+
+.select-flight {
+  width: 100%;
+
+  margin-top: 16px;
+
+  padding: 11px 14px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #162f75;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.select-flight:hover:not(:disabled) {
+  background: #10255f;
+
+  transform: translateY(-1px);
+}
+
+.select-flight:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   SELECTED FLIGHT SIDEBAR
+   ============================================================ */
+
+.flight-card {
+  background: white;
+
+  border: 1px solid #e7eaf0;
+
+  border-radius: 18px;
+
+  padding: 24px;
+
+  height: fit-content;
+
+  position: sticky;
+
+  top: 24px;
+}
+
+.card-title {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #7b8495;
+
+  margin-bottom: 18px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.05em;
+}
+
+.airline {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #162f75;
+}
+
+.airline strong {
+  color: #172033;
+
+  font-size: 16px;
+}
+
+.flight-number {
+  margin-top: 5px;
+
+  color: #737c8d;
+
+  font-size: 13px;
+}
+
+.route {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin: 28px 0;
+}
+
+.route div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.route span {
+  font-size: 12px;
+
+  color: #7b8495;
+}
+
+.route strong {
+  font-size: 14px;
+
+  color: #172033;
+}
+
+.arrow {
+  color: #8790a2;
+
+  font-size: 20px;
+}
+
+.details {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+.details span {
+  font-size: 11px;
+
+  color: #5f6878;
+
+  background: #f1f3f7;
+
+  padding: 6px 9px;
+
+  border-radius: 7px;
+}
+
+.price {
+  margin-top: 24px;
+
+  font-size: 27px;
+
+  font-weight: 700;
+
+  color: #162f75;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  .main {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+  }
+
+  .flight-card {
+    position: static;
+
+    order: -1;
+  }
+
+  .header {
+    padding: 0 18px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .header {
+    height: auto;
+
+    padding: 15px 16px;
+
+    gap: 12px;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .main {
+    padding: 10px;
+  }
+
+  .chat-panel {
+    min-height: 650px;
+
+    border-radius: 14px;
+  }
+
+  .messages {
+    padding: 16px;
+  }
+
+  .message-content {
+    max-width: 88%;
+  }
+
+  .flight-option {
+    padding: 15px;
+  }
+
+}
+
+.passenger-form {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e7eaf0;
+}
+
+.passenger-form label {
+  display: block;
+  margin-bottom: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #5d6575;
+}
+
+.passenger-form input {
+  width: 100%;
+
+  border: 1px solid #dfe3ea;
+  border-radius: 10px;
+
+  padding: 11px 12px;
+
+  outline: none;
+
+  color: #172033;
+  background: white;
+}
+
+.passenger-form input:focus {
+  border-color: #162f75;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 47, 117, 0.08);
+}
+
+.review-booking {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 11px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #162f75;
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.review-booking:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.confirmation-box {
+  margin-top: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e7eaf0;
+}
+
+.confirmation-box h3 {
+  margin: 0 0 14px;
+
+  font-size: 16px;
+}
+
+.confirmation-box p {
+  margin: 7px 0;
+
+  font-size: 13px;
+
+  color: #5d6575;
+}
+
+.confirmation-box strong {
+  color: #172033;
+}
+
+.confirmation-actions {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 16px;
+}
+
+.confirm-button,
+.cancel-button {
+  flex: 1;
+
+  padding: 10px;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+.confirm-button {
+  border: none;
+
+  background: #162f75;
+
+  color: white;
+}
+
+.cancel-button {
+  border: 1px solid #dfe3ea;
+
+  background: white;
+
+  color: #5d6575;
+}
+
+.confirm-button:disabled,
+.cancel-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.booking-success {
+  text-align: center;
+}
+
+.success-icon {
+  width: 56px;
+  height: 56px;
+
+  margin: 5px auto 14px;
+
+  border-radius: 50%;
+
+  background: #e8f7ee;
+
+  color: #219653;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.success-title {
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #172033;
+}
+
+.pnr-label {
+  margin-top: 20px;
+
+  font-size: 11px;
+
+  color: #7b8495;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+}
+
+.pnr {
+  margin-top: 5px;
+
+  font-size: 25px;
+
+  font-weight: 800;
+
+  color: #162f75;
+
+  letter-spacing: 0.08em;
+}
+
+.booking-details {
+  margin-top: 24px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #e7eaf0;
+
+  text-align: left;
+}
+
+.booking-details p {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin: 10px 0;
+
+  font-size: 13px;
+}
+
+.booking-details span {
+  color: #7b8495;
+}
+
+.booking-details strong {
+  color: #172033;
+
+  text-align: right;
+}
+
+.new-search-button {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding: 11px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #162f75;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
